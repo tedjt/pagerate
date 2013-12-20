@@ -1,8 +1,6 @@
 var path = document.referrer;
 window.addEventListener("message", getPageRankPath, false);
 var firebase = new Firebase('https://pagerate.firebaseio.com/');
-var auth = new FirebaseSimpleLogin(firebase, function(error, user) {
-});
 $(document).ready(function() {
   // get path info
   top.postMessage('getPageRankPath', '*');
@@ -11,7 +9,7 @@ $(document).ready(function() {
     return;
   }
   $('#login-btn').click(function() {
-    auth.login('twitter', {rememberMe: true});
+    $('#authFrame').contentWindow.postMessage('getAuthToken', '*');
   });
 });
 
