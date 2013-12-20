@@ -20,7 +20,7 @@
       "css": ["style.css"]
     }
   ],
-  "web_accessible_resources": ["iframe.html", "firebase_test.css", "firebase_test.js"],
+  "web_accessible_resources": ["iframe.html", "pagerate.css", "pagerate.js"],
   "content_security_policy": "script-src 'self' https://*.googleapis.com https://cdn.firebase.com; object-src 'self'",
   "manifest_version": 2
 }
