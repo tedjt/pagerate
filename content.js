@@ -10,7 +10,7 @@ if (path.length > 0) { //swap with firbase to figure out if the user has ranked
 function rank(rank) {
   // call to firebase and rankedk
   // update dom to show the rank
-  
+
 }
 
 function getAverageRank() {
