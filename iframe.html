@@ -1,0 +1,11 @@
+<html>
+<body>
+<h1 style="width:100%;"> HELLO WORLD </h1>
+<button id="button">Click me!</button>
+<script>
+document.getElementById("button").addEventListener("click", function() {
+    top.postMessage("clicked!", "*");
+    }, false);
+</script>
+</body>
+</html>

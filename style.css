@@ -1,0 +1,9 @@
+.pagerankerIFrame {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  height: 50px;
+  z-index: 1000;
+  width: 100%;
+  background-color:aliceblue;
+}
