@@ -5,7 +5,6 @@ iframe.className = 'pagerankerIFrame';
 document.body.insertBefore(iframe, document.body.firstChild);
 
 function receiveMessage(event) {
-  console.log(event);
   if (event.data == 'hidePageRankFrame') {
     iframe.style.display = 'None';
   } else if (event.data == 'getPageRankPath') {

@@ -1,13 +1,9 @@
 var path = document.referrer;
-window.addEventListener("message", getPageRankPath, false);
+window.addEventListener("message", handleMessage, false);
 var firebase = new Firebase('https://pagerate.firebaseio.com/');
 $(document).ready(function() {
   // get path info
   top.postMessage('getPageRankPath', '*');
-  if (isPageRated()) {
-    top.postMessage('hidePageRankFrame', '*');
-    return;
-  }
   $('#login-btn').click(function() {
     $('#authFrame').contentWindow.postMessage('getAuthToken', '*');
   });
@@ -28,13 +24,14 @@ function isPageRated() {
   return path.length > 0;
 }
 
-function getPageRankPath(event) {
+function handleMessage(event) {
   if (event.data.hasOwnProperty('returnPageRankPath')) {
     path = event.data['returnPageRankPath'];
-    console.log(path);
     if (isPageRated()) {
       top.postMessage('hidePageRankFrame', '*');
       return;
     }
+  } else if (event.data.hasOwnProperty('fireBaseAuthCompleted')) {
+    console.log(event);
   }
 }

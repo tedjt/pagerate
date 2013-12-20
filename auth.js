@@ -6,7 +6,7 @@ var auth = new FirebaseSimpleLogin(firebase, function(error, user) {
   top.postMessage({'fireBaseAuthCompleted': user}, '*')
 });
 
-function getAuthtoken() {
+function getAuthToken() {
   if (message.data == 'getAuthToken') {
     auth.login('twitter', {rememberMe: true});
   }
