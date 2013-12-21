@@ -1,9 +1,13 @@
-.pagerankerIFrame {
+.pagerate-iframe {
   position: fixed;
   top: 0px;
   left: 0px;
-  height: 100px;
+  height: 0px;
   z-index: 10000;
   width: 100%;
   background-color:aliceblue;
+}
+
+.hidden {
+  display: none;
 }

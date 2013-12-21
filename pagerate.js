@@ -16,20 +16,16 @@ $(document).ready(function() {
     var w = $('#authFrame')[0].contentWindow;
     w.postMessage('getAuthToken', '*');
   };
+
   loginFunc();
   $('#login-btn').click(loginFunc);
+
   // honestly I think I'd prefer to utilize the chrome extension
   // popup option. That would also simplify all this iframe messaging
   // and these xss workarounds.
   // make hide button hide iframe.
   $('#hide-btn').click(hide);
-  $('#rate-btn').click(function() {
-    rate(4.3);
-  });
 
-  $('#rate-input').mouseup(function(event) {
-    rate($(event.target).val());
-  })
 });
 
 function rate(rank) {
@@ -118,9 +114,13 @@ function handleMessage(event) {
     getPageStats();
     maybeHideFrame();
   } else if (event.data.hasOwnProperty('fireBaseAuthCompleted')) {
+    var localUser = event.data['fireBaseAuthCompleted'];
+    if (!localUser) {
+      return;
+    }
+
     // login was succesful!
     $('#login-btn').hide();
-    var localUser = event.data['fireBaseAuthCompleted'];
     var userId = localUser.uid;
     var firebaseAuthToken = localUser.firebaseAuthToken;
     //Log user in
@@ -132,6 +132,10 @@ function handleMessage(event) {
       console.log('Authenticated successfully with payload:', result.auth);
       //maybeHideFrame();
     }
+
+    $('#rate-input').mouseup(function(event) {
+      rate($(event.target).val());
+    });
 });
   }
 }
