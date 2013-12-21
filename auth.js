@@ -4,7 +4,7 @@ var pagerateSource;
 var storedUser;
 var auth = new FirebaseSimpleLogin(firebase, function(error, user) {
   storedUser = user;
-  if (pageRateSource) {
+  if (pagerateSource) {
     pagerateSource.postMessage({'fireBaseAuthCompleted': user}, '*')
   }
 });
