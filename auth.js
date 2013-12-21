@@ -11,7 +11,7 @@ var auth = new FirebaseSimpleLogin(firebase, function(error, user) {
 
 function getAuthToken(message) {
   if (message.data == 'getAuthToken') {
-    pageRateSource = message.source;
+    pagerateSource = message.source;
     auth.login('twitter', {rememberMe: true});
   }
 }
