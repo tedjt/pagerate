@@ -5,7 +5,8 @@ $(document).ready(function() {
   // get path info
   top.postMessage('getPageRankPath', '*');
   $('#login-btn').click(function() {
-    $('#authFrame').contentWindow.postMessage('getAuthToken', '*');
+    var w = $('#authFrame')[0].contentWindow;
+    w.postMessage('getAuthToken', '*');
   });
 });
 
@@ -21,7 +22,7 @@ function getAverageRating() {
 
 function isPageRated() {
   // TODO(call out to firebase)
-  return path.length > 0;
+  return !(path.length > 0);
 }
 
 function handleMessage(event) {
