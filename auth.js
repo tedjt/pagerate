@@ -1,11 +1,11 @@
 window.addEventListener("message", getAuthToken, false);
 var firebase = new Firebase('https://pagerate.firebaseio.com/');
-var pagerateRateSource;
+var pagerateSource;
 var storedUser;
 var auth = new FirebaseSimpleLogin(firebase, function(error, user) {
   storedUser = user;
   if (pageRateSource) {
-    pageRateSource.postMessage({'fireBaseAuthCompleted': user}, '*')
+    pagerateSource.postMessage({'fireBaseAuthCompleted': user}, '*')
   }
 });
 
