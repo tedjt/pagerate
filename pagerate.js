@@ -1,4 +1,4 @@
-var path, user, pageStats, averageRating;
+var path, user, pageStats, averageRating, haveUpdatedStats;
 
 // register our handler to iframes that deal with auth,
 // and communicate with parent frame to show/hide toolbar
@@ -26,32 +26,48 @@ $(document).ready(function() {
   $('#rate-btn').click(function() {
     rate(4.3);
   });
+
+  $('#rate-input').mouseup(function(event) {
+    rate($(event.target).val());
+  })
 });
 
 function rate(rank) {
   if (user && path) {
     // TODO(ted) make sure only logged in users can update.
-
     // update user rating
     var userPageRef = firebase.child(path).child(user.uid);
-    userPageRef.set(rank);
-
-    // update our aggregates.
-    var pageStatsRef = firebase.child(path).child('stats')
-    pageStatsRef.transaction(function(current_value) {
-      var sumRank, sumCount;
-      if (current_value === null) {
-        sumRank = rank;
-        sumCount = 1;
-      } else {
-        sumRank = current_value['sum'] + rank;
-        sumCount = current_value['count'] + 1;
-      }
-      return {'sum': sumRank, 'count': sumCount};
+    userPageRef.transaction(function(currentValue) {
+      if (currentValue === null) {
+        // update stats
+        updateStats(rank);
+        return rank;
+      } 
     });
-
-    //TODO update dom to show the rank
   }
+}
+
+function updateStats(rank) {
+  // only want to do this once - since the above is a transaction
+  // it could potentially trigger multiple times.
+  if (haveUpdatedStats) {
+    return;
+  }
+  // update our aggregates.
+  var pageStatsRef = firebase.child(path).child('stats')
+  pageStatsRef.transaction(function(current_value) {
+    haveUpdatedStats = true;
+    var sumRank, sumCount;
+    if (current_value === null) {
+      sumRank = rank;
+      sumCount = 1;
+    } else {
+      sumRank = current_value['sum'] + rank;
+      sumCount = current_value['count'] + 1;
+    }
+    //TODO update dom to show the rank an new average.
+    return {'sum': sumRank, 'count': sumCount};
+  });
 }
 
 function getPageStats() {
@@ -110,7 +126,7 @@ function handleMessage(event) {
     } else {
       user = localUser;
       console.log('Authenticated successfully with payload:', result.auth);
-      maybeHideFrame();
+      //maybeHideFrame();
     }
 });
   }
