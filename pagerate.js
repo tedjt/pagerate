@@ -33,7 +33,7 @@ function rate(rank) {
     // TODO(ted) make sure only logged in users can update.
 
     // update user rating
-    var userPageRef = firebase.child(page).child(user.uid);
+    var userPageRef = firebase.child(path).child(user.uid);
     userPageRef.set(rank);
 
     // update our aggregates.
@@ -110,6 +110,7 @@ function handleMessage(event) {
     } else {
       user = localUser;
       console.log('Authenticated successfully with payload:', result.auth);
+      maybeHideFrame();
     }
 });
   }
