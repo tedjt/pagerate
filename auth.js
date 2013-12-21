@@ -5,7 +5,9 @@ var storedUser;
 var auth = new FirebaseSimpleLogin(firebase, function(error, user) {
   storedUser = user;
   if (pagerateSource) {
-    pagerateSource.postMessage({'fireBaseAuthCompleted': user}, '*')
+    pagerateSource.postMessage({'fireBaseAuthCompleted': user}, '*');
+  } else {
+    parent.postMessage({'fireBaseAuthCompleted': user}, '*');
   }
 });
 

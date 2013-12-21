@@ -12,15 +12,20 @@ $(document).ready(function() {
   // we could also do this by passing it in the hash of the url.
   top.postMessage('getPageRankPath', '*');
   // we also need the user to login to show average rating + let them rate.
-  $('#login-btn').click(function() {
+  var loginFunc = function() {
     var w = $('#authFrame')[0].contentWindow;
     w.postMessage('getAuthToken', '*');
-  });
+  };
+  loginFunc();
+  $('#login-btn').click(loginFunc);
   // honestly I think I'd prefer to utilize the chrome extension
   // popup option. That would also simplify all this iframe messaging
   // and these xss workarounds.
   // make hide button hide iframe.
   $('#hide-btn').click(hide);
+  $('#rate-btn').click(function() {
+    rate(4.3);
+  });
 });
 
 function rate(rank) {
