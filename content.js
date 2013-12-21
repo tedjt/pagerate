@@ -1,7 +1,7 @@
 window.addEventListener("message", receiveMessage, false);
 var iframe = document.createElement("iframe");
 iframe.src = chrome.extension.getURL("iframe.html");
-iframe.className = 'pagerage-iframe';
+iframe.className = 'pagerate-iframe';
 iframe.setAttribute("scrolling", "no");
 document.body.insertBefore(iframe, document.body.firstChild);
 
