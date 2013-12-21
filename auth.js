@@ -1,6 +1,6 @@
 window.addEventListener("message", getAuthToken, false);
-var firebaseioase = new Firebase('https://pagerate.firebaseio.com/');
-var pageRateSource;
+var firebase = new Firebase('https://pagerate.firebaseio.com/');
+var pagerateRateSource;
 var storedUser;
 var auth = new FirebaseSimpleLogin(firebase, function(error, user) {
   storedUser = user;
