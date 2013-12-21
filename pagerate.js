@@ -44,7 +44,7 @@ function rate(rank) {
       }
       return {'sum': sumRank, 'count': sumCount};
     });
-    
+
     //TODO update dom to show the rank
   }
 }
@@ -61,7 +61,7 @@ function getPageStats() {
         pageStats = snapshot.val();
         averageRating = (pageStats.sum / pageStats.count).toFixed(2);
       }
-    }
+    });
   }
 }
 
@@ -87,12 +87,14 @@ function hide() {
 
 function handleMessage(event) {
   if (event.data.hasOwnProperty('returnPageRankPath')) {
-    path = event.data['returnPageRankPath'];
+    var truePath = event.data['returnPageRankPath'];
+    path = encodeURIComponent(truePath).replace(/\./g, '%2E')
     // now that we loaded the path, kick off computation of average rating.
     getPageStats();
     maybeHideFrame();
   } else if (event.data.hasOwnProperty('fireBaseAuthCompleted')) {
     // login was succesful!
+    $('#login-btn').hide();
     var localUser = event.data['fireBaseAuthCompleted'];
     var userId = localUser.uid;
     var firebaseAuthToken = localUser.firebaseAuthToken;
