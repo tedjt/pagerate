@@ -37,12 +37,16 @@ function rate(rank) {
     // TODO(ted) make sure only logged in users can update.
     // update user rating
     var userPageRef = firebase.child(path).child(user.uid);
-    userPageRef.transaction(function(currentValue) {
-      if (currentValue === null) {
-        // update stats
-        updateStats(rank);
-        return rank;
-      } 
+    userPageRef.once('value', function(snapshot) {
+      if (snapshot.val() === null) {
+        userPageRef.transaction(function(currentValue) {
+          if (currentValue === null) {
+            // update stats
+            updateStats(rank);
+            return rank;
+          } 
+        });
+      }
     });
   }
 }
