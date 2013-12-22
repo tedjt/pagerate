@@ -18,7 +18,7 @@ $(document).ready(function() {
   };
 
   loginFunc();
-  $('#login-btn').click(loginFunc);
+  $('.login').click(loginFunc);
 
   // honestly I think I'd prefer to utilize the chrome extension
   // popup option. That would also simplify all this iframe messaging
@@ -26,6 +26,9 @@ $(document).ready(function() {
   // make hide button hide iframe.
   $('#hide-btn').click(hide);
 
+  $('.slider-input').change(function() {
+    $('.current-value').text($(this).val());
+  });
 });
 
 function rate(rank) {
@@ -80,7 +83,7 @@ function getPageStats() {
         averageRating = 'UNRATED';
       } else {
         pageStats = snapshot.val();
-        averageRating = (pageStats.sum / pageStats.count).toFixed(2);
+        averageRating = (pageStats.sum / pageStats.count).toFixed(0);
       }
     });
   }
@@ -116,26 +119,33 @@ function handleMessage(event) {
   } else if (event.data.hasOwnProperty('fireBaseAuthCompleted')) {
     var localUser = event.data['fireBaseAuthCompleted'];
     if (!localUser) {
+      $('.login').removeClass('hidden');
       return;
     }
 
     // login was succesful!
-    $('#login-btn').hide();
+    $('.current-value').removeClass('hidden');
     var userId = localUser.uid;
     var firebaseAuthToken = localUser.firebaseAuthToken;
     //Log user in
     firebase.auth(firebaseAuthToken, function(error, result) {
-    if(error) {
-      console.log("Login Failed!", error);
-    } else {
-      user = localUser;
-      console.log('Authenticated successfully with payload:', result.auth);
-      //maybeHideFrame();
-    }
+      if(error) {
+        console.log("Login Failed!", error);
+      } else {
+        user = localUser;
+        console.log('Authenticated successfully with payload:', result.auth);
+        //maybeHideFrame();
+      }
 
-    $('#rate-input').mouseup(function(event) {
-      rate($(event.target).val());
+      $('.slider-input').mouseup(function(event) {
+        rate($(event.target).val());
+        $('.current-value').css('color', '#A7DBD8');
+        $('.average-value').text(averageRating + ' avg');
+        $('.average-value').css({
+          opacity: 0,
+          display: 'inline'
+        }).animate({opacity: 1}, 2000);
+      });
     });
-});
   }
 }

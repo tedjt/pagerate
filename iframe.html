@@ -3,15 +3,22 @@
     <script type='text/javascript' src='https://cdn.firebase.com/v0/firebase.js'></script>
     <script type="text/javascript" src="https://cdn.firebase.com/v0/firebase-simple-login.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Abril+Fatface:400" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="pagerate.css">
   </head>
   <body>
     <script type="text/javascript" src="pagerate.js">
     </script>
     <div class="banner">
-      <input id="rate-input" type="range" tabIndex="-1"></input>
-      <button id="login-btn" class="button">Sign in with Twitter</button>
-      <button id="hide-btn" class="button">Hide</button>
+      <div class="slider">
+        <input class="slider-input" type="range" value="100" tabIndex="-1"></input>
+      </div>
+      <div class="text">
+        <div class="login hidden">Sign in with Twitter</div>
+        <div class="current-value hidden">Drag me!</div>
+        <div class="average-value hidden"></div>
+      </div>
+      <!-- <button id="hide-btn" class="button">Hide</button> -->
     </div>
     <iframe id="authFrame" src="http://git.tedtomlinson.com/pagerate/auth.html"></iframe>
   </body>
