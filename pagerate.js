@@ -78,11 +78,8 @@ function getPageStats() {
   if (path) {
     var pageStatsRef = firebase.child(path).child('stats')
     pageStatsRef.once('value', function(snapshot) {
-      if (snapshot.val() === null) {
-        // no stats yet. Show unrated.
-        averageRating = 'UNRATED';
-      } else {
-        pageStats = snapshot.val();
+      var pageStats = snapshot.val();
+      if (pageStats) {
         averageRating = (pageStats.sum / pageStats.count).toFixed(0);
       }
     });
@@ -138,8 +135,12 @@ function handleMessage(event) {
       }
 
       $('.slider-input').mouseup(function(event) {
-        rate($(event.target).val());
-        $('.current-value').css('color', '#A7DBD8');
+        var currentRating = $(event.target).val();
+        rate(currentRating);
+        $('.current-value').css('color', '#2E9791');
+        if (!averageRating) {
+          averageRating = currentRating;
+        }
         $('.average-value').text(averageRating + ' avg');
         $('.average-value').css({
           opacity: 0,
