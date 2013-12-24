@@ -3,7 +3,17 @@
   top: 0px;
   left: 0px;
   height: 100px;
-  z-index: 10000;
+  z-index: 100000;
   width: 100%;
-  background-color:aliceblue;
+  -webkit-transition: height 1s ease-out;
+}
+
+.pagerate-margin {
+  height: 100px;
+  -webkit-transition: height 1s ease-out;
+}
+
+.pagerate-hidden {
+  height: 0;
+  overflow: hidden;
 }

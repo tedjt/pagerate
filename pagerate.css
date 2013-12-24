@@ -37,15 +37,30 @@ input[type="range"]::-webkit-slider-thumb {
   border-radius: 3px;
 }
 
+.hide-button {
+  color: #41557B;
+  font-size: 24px;
+  margin: 6px 0 0 2.5%;
+  float: left;
+}
+
+.hide-button:hover {
+  cursor: pointer;
+}
+
 .slider {
   float: left;
   margin: 0 2.5%;
   width: 80%;
 }
 
+.slider-input {
+  float: left;
+}
+
 .text {
   color: #41557B;
-  width: 15%;
+  width: 10%;
   height: 50px;
   float: left;
   font-family: 'Abril Fatface';
@@ -53,7 +68,6 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .login {
-  text-align: center;
   padding-top: 6px;
   margin: 0 auto;
 }

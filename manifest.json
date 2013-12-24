@@ -1,6 +1,6 @@
 {
   "name": "PageRate",
-  "description": "Community rank the quality of the current page",
+  "description": "Mission: Rate the quality of every page on the internet",
   "version": "0.1",
   "permissions": [
     //"tabs",
